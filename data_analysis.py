@@ -12,7 +12,9 @@ X = dataset.iloc[:, :-1].values
 #  y is the dependent variable - we are syaing if purchasing is affected by other factors
 y = dataset.iloc[:, -1].values
 
-print(y)
+print("Independent variable \n", X)
+
+print("\n Dependent variable \n", y)
 
 
 from sklearn.model_selection import train_test_split
