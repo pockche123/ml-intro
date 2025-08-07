@@ -17,5 +17,33 @@ print("Independent variable \n", X)
 print("\n Dependent variable \n", y)
 
 
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+# 2. taking care of missing data 
+
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+# looks at all x but looks at age and salary column 1 to 3 (exclusve)
+imputer.fit(X[:, 1:3])
+
+# This has transformed the x where the missing values are now NAN
+X[:, 1:3] = imputer.transform(X[:, 1:3])
+print("\n Missing data \n", X, "\n")
+
+# from sklearn.model_selection import train_test_split
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+# 2. Encoding categorical data
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
+
+# the first y index which is Country
+ct = ColumnTransformer(transformers=[('encoder', OneHotEncoder(), [0])],remainder='passthrough')
+X  = np.array(ct.fit_transform(X))
+
+print("The first three columns indicate their unique ids of 'France', 'Germany' and 'Spain' \n")
+print(X, "\n")
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+y  = le.fit_transform(y)
+print("For dependant variables, 0 corresponds to 'no' and 1 corresponds to '1'")
+print(y, "\n")
