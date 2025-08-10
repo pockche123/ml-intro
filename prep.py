@@ -63,4 +63,13 @@ print("y_train - this is the 8 train purchase data\n", y_train, "\n")
 print("y_test\n", y_test, "\n")
 
 
-print("\n\nFeature Scaling - happens after splitting dataset into training set and test set")
+print("\n\nFeature Scaling - happens after splitting dataset into training set and test set\n")
+from sklearn.preprocessing import StandardScaler
+
+sc = StandardScaler()
+#  x and y, x we take everything but for y from 3 onwards since y index before this are dummy variables
+X_train[:, 3:] = sc.fit_transform(X_train[:, 3:])
+X_test[:, 3:] = sc.fit_transform(X_test[:, 3:])
+
+print("X train\n", X_train, "\n" )
+print("X_test\n", X_test, "\n")
